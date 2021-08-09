@@ -9,24 +9,23 @@ import java.util.UUID;
 
 /**
  * @Author rohit
- * @Date 08/08/21
+ * @Date 09/08/21
  **/
 @Data
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "categorys")
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
-    private String mobile;
-    private String email;
-    private String firstName;
-    private String lastName;
+    private UUID categoryId;
+    private String name;
+    private UUID parentId;
+    private String description;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_expense"))
+    @JoinColumn(name = "category_id",foreignKey = @ForeignKey(name="fk_category_expense"))
     List<Expense> expenses;
 
 }
