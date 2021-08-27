@@ -22,10 +22,12 @@ public class Category implements Serializable {
     private String name;
     private UUID parentId;
     private String description;
+    private UUID userId;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "category_id",foreignKey = @ForeignKey(name="fk_category_expense"))
+    @JoinColumn(name = "category_id",
+            foreignKey = @ForeignKey(name = "fk_category_expense"))
     List<Expense> expenses;
 
 }
