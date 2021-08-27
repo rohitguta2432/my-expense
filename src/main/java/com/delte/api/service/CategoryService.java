@@ -1,5 +1,6 @@
 package com.delte.api.service;
 
+import com.delte.api.mapper.CategoryDto;
 import com.delte.api.model.Category;
 
 import java.util.List;
@@ -10,5 +11,5 @@ import java.util.List;
  **/
 public interface CategoryService {
     Category save(Category category);
-    List<Category> getAllCategory();
+    List<CategoryDto> getAllCategory();
 }

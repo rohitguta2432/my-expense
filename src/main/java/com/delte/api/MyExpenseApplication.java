@@ -10,3 +10,4 @@ public class MyExpenseApplication {
         SpringApplication.run(MyExpenseApplication.class, args);
     }
 }
+

@@ -1,5 +1,6 @@
 package com.delte.api.controller;
 
+import com.delte.api.mapper.CategoryDto;
 import com.delte.api.model.Category;
 import com.delte.api.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategory() {
+    public ResponseEntity<List<CategoryDto>> getAllCategory() {
         return new ResponseEntity(categoryService.getAllCategory(), HttpStatus.OK);
     }
 }

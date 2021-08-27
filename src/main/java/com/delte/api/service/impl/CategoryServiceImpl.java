@@ -1,5 +1,6 @@
 package com.delte.api.service.impl;
 
+import com.delte.api.mapper.CategoryDto;
 import com.delte.api.model.Category;
 import com.delte.api.repository.CategoryRepository;
 import com.delte.api.service.CategoryService;
@@ -27,8 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategory() {
+    public List<CategoryDto> getAllCategory() {
         log.info("fetch all Category : {}");
-        return categoryRepository.findAll();
+        return categoryRepository.findAllCategory();
     }
 }
