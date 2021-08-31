@@ -1,9 +1,11 @@
 package com.delte.api.service;
 
+import com.delte.api.mapper.ExpenseCategoryDto;
 import com.delte.api.mapper.ExpenseDto;
 import com.delte.api.model.Expense;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author rohit
@@ -12,4 +14,6 @@ import java.util.List;
 public interface ExpenseService {
     Expense create(ExpenseDto expense);
     List<ExpenseDto> getAllExpenses();
+    List<ExpenseCategoryDto> getMonthyExpense();
+    Expense getExpenseById(UUID expenseId);
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author rohit
@@ -29,5 +30,15 @@ public class ExpenseController {
     @GetMapping
     public ResponseEntity<List<ExpenseDto>> getAllExpenses() {
         return new ResponseEntity<>(expenseService.getAllExpenses(), HttpStatus.OK);
+    }
+
+    @GetMapping("monthly")
+    public ResponseEntity<?> getMonthlyExpense() {
+        return new ResponseEntity<>(expenseService.getMonthyExpense(), HttpStatus.OK);
+    }
+
+    @GetMapping("{expenseId}")
+    public ResponseEntity<?> getExpenseById(@PathVariable UUID expenseId) {
+        return new ResponseEntity<>(expenseService.getExpenseById(expenseId), HttpStatus.OK);
     }
 }

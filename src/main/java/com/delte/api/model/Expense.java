@@ -20,6 +20,7 @@ public class Expense implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID expenseId;
+
     private double amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
