@@ -23,4 +23,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, UUID> {
 
     /*  @Query("select e from Expense e where SUBSTRING(e.expenseDate,1,7) = :expenseDate")*/
     List<Expense> findAllExpenseByExpenseDateBetween(Date startDate, Date expenseDate);
+
+    @Query("select new com.delte.api.mapper.ExpenseDto(e.expenseId,e.expenseDate,e.category.categoryId,e.amount,e.category.name) from Expense e where e.expenseId = :expenseId")
+    ExpenseDto findAllExpenseById(UUID expenseId);
 }

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -33,13 +34,28 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense create(ExpenseDto expenses) {
+        log.info("create expense : {} ", expenses);
+
+        Optional<Expense> expensese = Optional.empty();
         Expense expense = new Expense();
-        expense.setExpenseDate(expenses.getExpenseDate());
-        expense.setAmount(expenses.getAmount());
-        expense.setCategory(categoryRepository
-                .findById(expenses.getCategoryId()).get());
-        expenseRepository.save(expense);
-        return expense;
+        if (!ObjectUtils.isEmpty(expenses.getExpenseId())) {
+            expensese = expenseRepository.findById(expenses.getExpenseId());
+            if (expensese.isPresent()) {
+                expensese.get().setExpenseDate(expenses.getExpenseDate());
+                expensese.get().setAmount(expenses.getAmount());
+                expensese.get().setCategory(categoryRepository
+                        .findById(expenses.getCategoryId()).get());
+                expenseRepository.save(expensese.get());
+            }
+        } else {
+            expense.setExpenseDate(expenses.getExpenseDate());
+            expense.setAmount(expenses.getAmount());
+            expense.setCategory(categoryRepository
+                    .findById(expenses.getCategoryId()).get());
+
+            expenseRepository.save(expense);
+        }
+        return !ObjectUtils.isEmpty(expenses.getExpenseId()) ? expensese.get() : expense;
     }
 
     @Override
@@ -70,9 +86,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense getExpenseById(UUID expenseId) {
-        return expenseRepository.findById(expenseId).get();
+    public ExpenseDto getExpenseById(UUID expenseId) {
+        return expenseRepository.findAllExpenseById(expenseId);
     }
+
 
     private Date getLastDateOfMonth() {
         Calendar calendar = Calendar.getInstance();
@@ -87,6 +104,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         return calendar.getTime();
     }
 

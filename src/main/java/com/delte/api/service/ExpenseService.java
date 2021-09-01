@@ -15,5 +15,6 @@ public interface ExpenseService {
     Expense create(ExpenseDto expense);
     List<ExpenseDto> getAllExpenses();
     List<ExpenseCategoryDto> getMonthyExpense();
-    Expense getExpenseById(UUID expenseId);
+    ExpenseDto getExpenseById(UUID expenseId);
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author rohit
@@ -30,5 +31,14 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategory() {
         return new ResponseEntity(categoryService.getAllCategory(), HttpStatus.OK);
+    }
+
+    @GetMapping("{categoryId}")
+    public ResponseEntity<?> getCategoryById(@PathVariable UUID categoryId) {
+        return new ResponseEntity(categoryService.getCategoryById(categoryId), HttpStatus.OK);
+    }
+    @DeleteMapping("{categoryId}")
+    public ResponseEntity<?> deleteCategoryById(@PathVariable UUID categoryId){
+            return new ResponseEntity<>(categoryService.deleteById(categoryId), HttpStatus.OK);
     }
 }

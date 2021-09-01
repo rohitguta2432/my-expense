@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author rohit
@@ -31,5 +32,17 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getAllCategory() {
         log.info("fetch all Category : {}");
         return categoryRepository.findAllCategory();
+    }
+
+    @Override
+    public CategoryDto getCategoryById(UUID categoryId) {
+        log.info("fetching category by id : {} ", categoryId);
+        return categoryRepository.findByCategoryId(categoryId);
+    }
+
+    @Override
+    public Boolean deleteById(UUID categoryId) {
+        categoryRepository.deleteById(categoryId);
+        return true;
     }
 }

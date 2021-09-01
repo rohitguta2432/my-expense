@@ -1,5 +1,6 @@
 package com.delte.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,10 +25,10 @@ public class Category implements Serializable {
     private String description;
     private UUID userId;
 
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id",
             foreignKey = @ForeignKey(name = "fk_category_expense"))
+    @JsonIgnore
     List<Expense> expenses;
 
 }

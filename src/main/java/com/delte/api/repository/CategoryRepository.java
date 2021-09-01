@@ -18,4 +18,7 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
 
     @Query("select new com.delte.api.mapper.CategoryDto(c.categoryId,c.name) from Category c")
     List<CategoryDto> findAllCategory();
+
+    @Query("select new com.delte.api.mapper.CategoryDto(c.categoryId,c.name) from Category c where c.categoryId = :categoryId")
+    CategoryDto findByCategoryId(UUID categoryId);
 }
