@@ -76,11 +76,13 @@ public class ExpenseServiceImpl implements ExpenseService {
         List<ExpenseCategoryDto> expenseCategoryDto = new ArrayList<>();
 
         expense.forEach(expe -> {
-            ExpenseCategoryDto expenses = new ExpenseCategoryDto();
-            expenses.setCategory(expe.getCategory().getName());
-            expenses.setAmountCess(convertInTwoDigit(expe.getAmount() / totalAmount * 100));
-            expenseCategoryDto.add(expenses);
-        });
+            if(!ObjectUtils.isEmpty(expe.getCategory())){
+                ExpenseCategoryDto expenses = new ExpenseCategoryDto();
+                expenses.setCategory(expe.getCategory().getName());
+                expenses.setAmountCess(convertInTwoDigit(expe.getAmount() / totalAmount * 100));
+                expenseCategoryDto.add(expenses);
+            }
+         });
 
         return expenseCategoryDto;
     }
