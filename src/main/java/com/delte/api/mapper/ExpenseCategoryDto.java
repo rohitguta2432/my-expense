@@ -8,6 +8,6 @@ import lombok.Data;
  **/
 @Data
 public class ExpenseCategoryDto {
-    private String category;
-    private double amountCess;
+    private String label;
+    private double y;
 }

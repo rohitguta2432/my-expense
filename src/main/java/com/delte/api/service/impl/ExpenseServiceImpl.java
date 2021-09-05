@@ -2,6 +2,7 @@ package com.delte.api.service.impl;
 
 import com.delte.api.mapper.ExpenseCategoryDto;
 import com.delte.api.mapper.ExpenseDto;
+import com.delte.api.model.Category;
 import com.delte.api.model.Expense;
 import com.delte.api.repository.CategoryRepository;
 import com.delte.api.repository.ExpenseRepository;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author rohit
@@ -31,6 +33,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
 
     @Override
     public Expense create(ExpenseDto expenses) {
@@ -75,16 +78,30 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         List<ExpenseCategoryDto> expenseCategoryDto = new ArrayList<>();
 
-        expense.forEach(expe -> {
-            if(!ObjectUtils.isEmpty(expe.getCategory())){
+        Map<String, DoubleSummaryStatistics> map = expense.stream()
+                .collect(Collectors.groupingBy(e -> e.getCategory().getName(), Collectors.summarizingDouble(Expense::getAmount)));
+
+        map.forEach((category, value) -> {
+            ExpenseCategoryDto expenses = new ExpenseCategoryDto();
+            expenses.setLabel(category);
+            expenses.setY(convertInTwoDigit(value.getSum() / totalAmount * 100));
+            expenseCategoryDto.add(expenses);
+        });
+
+       /* expense.forEach(expe -> {
+            if (!ObjectUtils.isEmpty(expe.getCategory())) {
                 ExpenseCategoryDto expenses = new ExpenseCategoryDto();
-                expenses.setCategory(expe.getCategory().getName());
-                expenses.setAmountCess(convertInTwoDigit(expe.getAmount() / totalAmount * 100));
+                expenses.setLabel(expe.getCategory().getName());
+                expenses.setY(convertInTwoDigit(expe.getAmount() / totalAmount * 100));
                 expenseCategoryDto.add(expenses);
             }
-         });
+        });*/
 
         return expenseCategoryDto;
+    }
+
+    private String getName(Category category) {
+        return category.getName();
     }
 
     @Override
