@@ -20,6 +20,9 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
     private String mobile;
+    private String userName;
+    private String password;
+    private String authority;
     private String email;
     private String firstName;
     private String lastName;
