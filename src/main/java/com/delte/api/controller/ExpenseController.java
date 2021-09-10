@@ -6,6 +6,7 @@ import com.delte.api.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class ExpenseController {
     }
 
     @GetMapping("monthly")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> getMonthlyExpense() {
         return new ResponseEntity<>(expenseService.getMonthyExpense(), HttpStatus.OK);
     }
