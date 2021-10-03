@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
+/*
+*
  * @Author rohit
  * @Date 06/09/21
- **/
+ *
+
+*/
 
 @RestController
 @RequestMapping("auth")

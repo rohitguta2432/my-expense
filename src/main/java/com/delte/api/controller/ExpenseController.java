@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * @Author rohit
- * @Date 09/08/21
- **/
+
 @RestController
 @RequestMapping("expense")
 public class ExpenseController {

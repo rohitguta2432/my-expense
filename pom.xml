@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.delte</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>expense</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>my-expense</name>
     <description>Demo project for Spring Boot</description>
@@ -53,6 +53,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
             <version>2.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.adyen</groupId>
+            <artifactId>adyen-java-api-library</artifactId>
+            <version>17.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

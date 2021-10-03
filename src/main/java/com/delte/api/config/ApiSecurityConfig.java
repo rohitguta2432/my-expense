@@ -73,7 +73,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
         config.setAllowedMethods(Arrays.asList("POST", "OPTIONS", "GET", "DELETE", "PUT"));
         config.setAllowCredentials(true);
         config.addAllowedOriginPattern("*");
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/**",config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return bean;
@@ -89,7 +89,7 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/auth/**","/payment/**").permitAll()
                 .anyRequest()
                 .authenticated();
 
