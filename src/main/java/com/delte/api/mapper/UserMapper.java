@@ -20,5 +20,5 @@ public class UserMapper {
     private String mobile;
     private String authority;
 
-    Map<String, String> message;
+    Map<String, String> userDetails;
 }

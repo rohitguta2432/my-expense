@@ -86,10 +86,13 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)
-                .authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/auth/**","/payment/**").permitAll()
+                .antMatchers("/auth/**","/payment/**","/user/register/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated();
 

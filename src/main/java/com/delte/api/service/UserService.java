@@ -10,4 +10,5 @@ import org.springframework.security.core.userdetails.UserDetails;
 public interface UserService {
     UserDetails loadUsernameAndPassword(String username, String password);
     UserMapper create(UserMapper userMapper);
+    UserMapper register(UserMapper userMapper);
 }

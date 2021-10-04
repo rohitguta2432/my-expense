@@ -1,5 +1,6 @@
 package com.delte.api.service.impl;
 
+import com.delte.api.constant.Constants;
 import com.delte.api.mapper.UserDto;
 import com.delte.api.mapper.UserMapper;
 import com.delte.api.model.ExpenseUser;
@@ -18,11 +19,11 @@ import org.springframework.util.ObjectUtils;
 import java.util.*;
 
 /*
-*
+ *
  * @Author rohit
  * @Date 06/09/21
  *
-*/
+ */
 
 
 @Slf4j
@@ -74,8 +75,29 @@ public class UserServiceImpl implements UserService {
         user.setAuthority(userMapper.getAuthority());
         userRepository.save(user);
         message.put("message", "user created successfully ..");
-        userMapper.setMessage(message);
+        userMapper.setUserDetails(message);
 
+        return userMapper;
+    }
+
+    @Override
+    public UserMapper register(UserMapper userMapper) {
+        log.info("register user : {} ", userMapper);
+        Map<String, String> map = new HashMap<>();
+        User userDetails = userRepository.findByUserName(userMapper.getUsername());
+
+        if (ObjectUtils.isEmpty(userDetails)) {
+            User user = new User();
+            user.setUserName(userMapper.getUsername());
+            user.setPassword(userMapper.getPassword());
+            userRepository.save(user);
+            map.put("message", "Register Successfull");
+            userMapper.setUserDetails(map);
+        }
+
+        map.put(Constants.MESSAGE, "user is already exist");
+        map.put(Constants.ERROR_CODE, "00");
+        userMapper.setUserDetails(map);
         return userMapper;
     }
 }
